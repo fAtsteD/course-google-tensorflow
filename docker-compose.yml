@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  tf-jupyter-gpu:
+    build: .
+    ports:
+      - 8888:8888
+    volumes:
+      - .:/tf
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - "gpu"
+    user: ${GID:-1000}:${UID:-1000}
